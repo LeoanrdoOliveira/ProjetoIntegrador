@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitas - Recanto Dos Idosos São Vicente de Paulo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', Arial, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; }
+        header { background: linear-gradient(135deg, #4682b4, #357ca5); color: white; padding: 20px 0; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+        nav { background-color: #357ca5; padding: 15px 0; }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        nav ul li a { color: white; text-decoration: none; font-weight: 600; padding: 12px 20px; border-radius: 25px; transition: background-color 0.3s, transform 0.2s; }
+        nav ul li a:hover { background-color: #5a9bd4; transform: scale(1.05); }
+        .header-content { text-align: center; padding: 30px; }
+        .header-content h1 { font-size: 3em; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
+        .header-content p { font-size: 1.4em; font-weight: 300; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); overflow-x: auto; }
+        h2 { color: #4682b4; margin-bottom: 15px; text-align: center; }
+        .form-section, .recipe-preview { margin-top: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #4682b4; }
+        input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em; }
+        button { background-color: #4682b4; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; transition: background-color 0.3s; margin-right: 10px; }
+        button:hover { background-color: #357ca5; }
+        .recipe-template { border: 2px dashed #4682b4; padding: 20px; background-color: #f9f9f9; border-radius: 8px; max-width: 600px; margin: 20px auto; }
+        .recipe-template h3 { text-align: center; color: #4682b4; margin-bottom: 20px; }
+        .recipe-template p { margin-bottom: 10px; }
+        footer { text-align: center; padding: 10px; background-color: #4682b4; color: white; margin-top: 20px; }
+        .error-message { color: red; font-size: 0.9em; display: none; }
+        @media (max-width: 768px) { 
+            .container { padding: 15px; }
+            nav ul { gap: 20px; }
+            .header-content h1 { font-size: 2em; }
+            .header-content p { font-size: 1em; }
+        }
+        @media (max-width: 600px) { 
+            .container { padding: 10px; } 
+            .recipe-template { padding: 15px; } 
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Recanto Dos Idosos São Vicente de Paulo</h1>
+            <p>Gerenciamento de Receitas Médicas</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/cadastro/">Cadastro de Residente</a></li>
+                <li><a href="/listagem/">Listagem de Residentes</a></li>
+                <li><a href="/receitas/">Receitas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Criar Receita Médica</h2>
+        
+        <div class="form-section">
+            <form id="recipeForm">
+                <div class="form-group">
+                    <label for="residentName">Nome do Residente</label>
+                    <input type="text" id="residentName" name="residentName" maxlength="100">
+                    <span class="error-message" id="residentNameError">Nome do residente excede 100 caracteres.</span>
+                </div>
+                <div class="form-group">
+                    <label for="doctorName">Nome do Médico</label>
+                    <input type="text" id="doctorName" name="doctorName" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="crm">CRM do Médico</label>
+                    <input type="text" id="crm" name="crm" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="medication">Medicamento</label>
+                    <input type="text" id="medication" name="medication" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="dosage">Dosagem</label>
+                    <input type="text" id="dosage" name="dosage" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="instructions">Instruções de Uso</label>
+                    <textarea id="instructions" name="instructions" rows="3" maxlength="100"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="issueDate">Data de Emissão</label>
+                    <input type="date" id="issueDate" name="issueDate">
+                </div>
+                <button type="submit">Gerar Receita</button>
+                <button type="button" id="downloadPdf" style="display: none;">Baixar PDF</button>
+            </form>
+        </div>
+
+        <div class="recipe-preview" id="recipePreview" style="display: none;">
+            <div class="recipe-template" id="recipeTemplate">
+                <h3>Receita Médica - Recanto Dos Idosos São Vicente de Paulo</h3>
+                <p><strong>Residente:</strong> <span id="previewResidentName"></span></p>
+                <p><strong>Médico:</strong> <span id="previewDoctorName"></span></p>
+                <p><strong>CRM:</strong> <span id="previewCrm"></span></p>
+                <p><strong>Medicamento:</strong> <span id="previewMedication"></span></p>
+                <p><strong>Dosagem:</strong> <span id="previewDosage"></span></p>
+                <p><strong>Instruções:</strong> <span id="previewInstructions"></span></p>
+                <p><strong>Data:</strong> <span id="previewIssueDate"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Recanto Dos Idosos São Vicente de Paulo - Todos os direitos reservados</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const { jsPDF } = window.jspdf;
+
+        document.getElementById('recipeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const residentName = document.getElementById('residentName').value.slice(0, 100) || "Não informado";
+            const doctorName = document.getElementById('doctorName').value.slice(0, 100) || "Não informado";
+            const crm = document.getElementById('crm').value.slice(0, 100) || "Não informado";
+            const medication = document.getElementById('medication').value.slice(0, 100) || "Não informado";
+            const dosage = document.getElementById('dosage').value.slice(0, 100) || "Não informado";
+            const instructions = document.getElementById('instructions').value.slice(0, 100) || "Não informado";
+            let issueDate = document.getElementById('issueDate').value || "Não informado";
+            if (issueDate !== "Não informado") {
+                const [year, month, day] = issueDate.split('-');
+                issueDate = `${day}/${month}/${year}`;
+            }
+
+            if (residentName.length > 100) {
+                document.getElementById('residentNameError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('residentNameError').style.display = 'none';
+            }
+
+            document.getElementById('previewResidentName').textContent = residentName;
+            document.getElementById('previewDoctorName').textContent = doctorName;
+            document.getElementById('previewCrm').textContent = crm;
+            document.getElementById('previewMedication').textContent = medication;
+            document.getElementById('previewDosage').textContent = dosage;
+            document.getElementById('previewInstructions').textContent = instructions;
+            document.getElementById('previewIssueDate').textContent = issueDate;
+
+            document.getElementById('recipePreview').style.display = 'block';
+            document.getElementById('downloadPdf').style.display = 'inline-block';
+        });
+
+        document.getElementById('downloadPdf').addEventListener('click', function() {
+            const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+            const pageWidth = doc.internal.pageSize.width;
+            const margin = 20;
+            const maxWidth = 120; // Aproximadamente 75 caracteres em mm (ajustado para fonte tamanho 12)
+            let yPosition = 15;
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(18);
+            doc.text('Recanto Dos Idosos São Vicente de Paulo', pageWidth / 2, yPosition, { align: 'center' });
+            yPosition += 7;
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            let splitText = doc.splitTextToSize('Rua Cônego Pedro F Doninho 554, Rancharia-SP', maxWidth);
+            splitText.forEach(line => { doc.text(line, pageWidth / 2, yPosition, { align: 'center' }); yPosition += 6; });
+            splitText = doc.splitTextToSize('CNPJ: 33.255.115/0001-86 | Tel: (18) 3265-1615', maxWidth);
+            splitText.forEach(line => { doc.text(line, pageWidth / 2, yPosition, { align: 'center' }); yPosition += 6; });
+            doc.setLineWidth(0.5);
+            doc.line(margin, yPosition, pageWidth - margin, yPosition);
+            yPosition += 10;
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(16);
+            doc.text('RECEITA MÉDICA', pageWidth / 2, yPosition, { align: 'center' });
+            yPosition += 15;
+
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Residente:', margin, yPosition);
+            doc.setFont('helvetica', 'normal');
+            splitText = doc.splitTextToSize(document.getElementById('previewResidentName').textContent, maxWidth);
+            splitText.forEach(line => { doc.text(line, margin + 30, yPosition); yPosition += 10; });
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('Médico:', margin, yPosition);
+            doc.setFont('helvetica', 'normal');
+            splitText = doc.splitTextToSize(document.getElementById('previewDoctorName').textContent, maxWidth);
+            splitText.forEach(line => { doc.text(line, margin + 30, yPosition); yPosition += 10; });
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('CRM:', margin, yPosition);
+            doc.setFont('helvetica', 'normal');
+            splitText = doc.splitTextToSize(document.getElementById('previewCrm').textContent, maxWidth);
+            splitText.forEach(line => { doc.text(line, margin + 30, yPosition); yPosition += 10; });
+
+            yPosition += 5;
+            doc.setFont('helvetica', 'bold');
+            doc.text('Prescrição', margin, yPosition);
+            yPosition += 10;
+            doc.setFont('helvetica', 'bold');
+            doc.text('Medicamento:', margin, yPosition);
+            doc.setFont('helvetica', 'normal');
+            splitText = doc.splitTextToSize(document.getElementById('previewMedication').textContent, maxWidth);
+            splitText.forEach(line => { doc.text(line, margin + 30, yPosition); yPosition += 10; });
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('Dosagem:', margin, yPosition);
+            doc.setFont('helvetica', 'normal');
+            splitText = doc.splitTextToSize(document.getElementById('previewDosage').textContent, maxWidth);
+            splitText.forEach(line => { doc.text(line, margin + 30, yPosition); yPosition += 10; });
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('Instruções:', margin, yPosition);
+            doc.setFont('helvetica', 'normal');
+            splitText = doc.splitTextToSize(document.getElementById('previewInstructions').textContent, maxWidth);
+            splitText.forEach(line => { doc.text(line, margin + 30, yPosition); yPosition += 10; });
+
+            yPosition += 5;
+            doc.setFont('helvetica', 'bold');
+            doc.text('Data:', pageWidth / 2, yPosition, { align: 'center' });
+            doc.setFont('helvetica', 'normal');
+            yPosition += 10;
+            splitText = doc.splitTextToSize(document.getElementById('previewIssueDate').textContent, maxWidth);
+            splitText.forEach(line => { doc.text(line, pageWidth / 2, yPosition, { align: 'center' }); yPosition += 10; });
+
+            yPosition += 10;
+            doc.setLineWidth(0.3);
+            doc.line(pageWidth / 2 - 40, yPosition, pageWidth / 2 + 40, yPosition);
+            yPosition += 5;
+            doc.text('Assinatura do Médico', pageWidth / 2, yPosition, { align: 'center' });
+
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.setLineWidth(0.5);
+            doc.line(margin, 275, pageWidth - margin, 275);
+            doc.text('Recanto Dos Idosos São Vicente de Paulo - Cuidando com Carinho', pageWidth / 2, 280, { align: 'center' });
+
+            const residentNameForFile = document.getElementById('previewResidentName').textContent.replace(/\s+/g, '_');
+            const issueDateForFile = document.getElementById('previewIssueDate').textContent.replace(/\//g, '-') || 'SemData';
+            doc.save(`receita_${residentNameForFile}_${issueDateForFile}.pdf`);
+        });
+
+        document.getElementById('residentName').addEventListener('input', function() {
+            const residentName = this.value;
+            const errorMessage = document.getElementById('residentNameError');
+            if (residentName.length > 100) {
+                errorMessage.style.display = 'block';
+                this.value = residentName.substring(0, 100);
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

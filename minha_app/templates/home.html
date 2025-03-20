@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Recanto Dos Idosos São Vicente de Paulo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #4682b4, #357ca5);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        nav {
+            background-color: #357ca5;
+            padding: 15px 0;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        nav ul li a:hover {
+            background-color: #5a9bd4;
+            transform: scale(1.05);
+        }
+        .header-content {
+            text-align: center;
+            padding: 30px;
+        }
+        .header-content h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .header-content p {
+            font-size: 1.4em;
+            font-weight: 300;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .intro {
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .intro h2 {
+            color: #4682b4;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+        .intro p {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        /* Estilo do Carrossel */
+        .carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-item {
+            min-width: 100%;
+            height: 400px;
+            position: relative;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        .carousel-item .caption {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: background 0.3s;
+        }
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .prev {
+            left: 10px;
+            border-radius: 50%;
+        }
+        .next {
+            right: 10px;
+            border-radius: 50%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #4682b4, #357ca5);
+            color: white;
+            margin-top: 40px;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            nav ul { gap: 20px; }
+            .carousel-item { height: 300px; }
+            .header-content h1 { font-size: 2em; }
+            .header-content p { font-size: 1em; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Recanto Dos Idosos São Vicente de Paulo</h1>
+            <p>Um lar acolhedor para a melhor idade</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'cadastro' %}">Cadastro de Residente</a></li>
+                <li><a href="{% url 'listagem' %}">Listagem de Residentes</a></li>
+                <li><a href="{% url 'receitas' %}">Receitas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <h2>Bem-vindo ao Recanto Dos Idosos São Vicente de Paulo</h2>
+            <p>Aqui, cuidamos dos nossos residentes com carinho, respeito e dedicação, proporcionando um ambiente familiar e cheio de vida.</p>
+        </div>
+
+        <div class="carousel">
+            <div class="carousel-inner" id="carouselInner">
+                <div class="carousel-item">
+                    <img src="https://www.grupoacasa.com.br/wp-content/uploads/2020/01/felicidade-para-idosos-longevidade.jpg" alt="Idoso 1">
+                    <div class="caption">Momentos de alegria no Recanto</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://media.istockphoto.com/id/1413583709/pt/foto/cheerful-senior-having-fun-while-taking-selfie-at-retirement-community.jpg?s=612x612&w=0&k=20&c=u85jEK9u1aa0PsGAIaryONnqjC7Br8OYawHyIDi4lT4=" alt="Idoso 2">
+                    <div class="caption">Cuidado para todos</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://st4.depositphotos.com/1743476/21196/i/450/depositphotos_211967296-stock-photo-senior-loving-couple-enjoying-sun.jpg" alt="Idoso 3">
+                    <div class="caption">Vida ativa e cheia de Sáude</div>
+                </div>
+            </div>
+            <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Recanto Dos Idosos São Vicente de Paulo - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const totalSlides = slides.length;
+
+        function moveSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            const carouselInner = document.getElementById('carouselInner');
+            carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // Auto-rolagem a cada 5 segundos
+        setInterval(() => moveSlide(1), 5000);
+    </script>
+</body>
+</html>

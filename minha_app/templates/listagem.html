@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de Residentes - Recanto Dos Idosos São Vicente de Paulo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #4682b4, #357ca5);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        nav {
+            background-color: #357ca5;
+            padding: 15px 0;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        nav ul li a:hover {
+            background-color: #5a9bd4;
+            transform: scale(1.05);
+        }
+        .header-content {
+            text-align: center;
+            padding: 30px;
+        }
+        .header-content h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .header-content p {
+            font-size: 1.4em;
+            font-weight: 300;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        h2 {
+            color: #4682b4;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .residentes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4682b4;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4682b4;
+            color: white;
+            margin-top: 20px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .residentes-table {
+                display: block;
+                overflow-x: auto;
+            }
+            th, td {
+                padding: 10px;
+            }
+            nav ul {
+                gap: 20px;
+                padding: 10px;
+            }
+            .header-content h1 {
+                font-size: 2em;
+            }
+            .header-content p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .residentes-table {
+                display: block;
+            }
+            .residentes-table thead {
+                display: none;
+            }
+            .residentes-table tbody, .residentes-table tr, .residentes-table td {
+                display: block;
+                width: 100%;
+            }
+            .residentes-table tr {
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                background-color: #fff;
+            }
+            .residentes-table td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                padding-right: 10px;
+                text-align: right;
+            }
+            .residentes-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                padding-right: 10px;
+                font-weight: bold;
+                text-align: left;
+                color: #4682b4;
+            }
+            .residentes-table tr:nth-child(even) {
+                background-color: #fff;
+            }
+            .residentes-table tr:hover {
+                background-color: #f9f9f9;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Recanto Dos Idosos São Vicente de Paulo</h1>
+            <p>Listagem de Residentes</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/cadastro/">Cadastro de Residente</a></li>
+                <li><a href="/listagem/">Listagem de Residentes</a></li>
+                <li><a href="/receitas/">Receitas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Residentes Cadastrados</h2>
+        <table class="residentes-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Data de Nascimento</th>
+                    <th>Gênero</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Condições de Saúde</th>
+                    <th>Cuidados Especiais</th>
+                    <th>Medicamentos</th>
+                    <th>Responsável</th>
+                    <th>Telefone do Responsável</th>
+                    <th>Parentesco</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados Mocados -->
+                <tr>
+                    <td data-label="Nome">João Silva</td>
+                    <td data-label="Data de Nascimento">15/03/1940</td>
+                    <td data-label="Gênero">Masculino</td>
+                    <td data-label="CPF">123.456.789-00</td>
+                    <td data-label="Telefone">(11) 9876-5432</td>
+                    <td data-label="E-mail">joao.silva@email.com</td>
+                    <td data-label="Condições de Saúde">Hipertensão</td>
+                    <td data-label="Cuidados Especiais">Sim</td>
+                    <td data-label="Medicamentos">Losartana 50mg - 1x/dia</td>
+                    <td data-label="Responsável">Maria Silva</td>
+                    <td data-label="Telefone do Responsável">(11) 9123-4567</td>
+                    <td data-label="Parentesco">Filha</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Maria Oliveira</td>
+                    <td data-label="Data de Nascimento">22/07/1938</td>
+                    <td data-label="Gênero">Feminino</td>
+                    <td data-label="CPF">987.654.321-00</td>
+                    <td data-label="Telefone">(21) 9987-6543</td>
+                    <td data-label="E-mail">maria.oliveira@email.com</td>
+                    <td data-label="Condições de Saúde">Diabetes Tipo 2</td>
+                    <td data-label="Cuidados Especiais">Sim</td>
+                    <td data-label="Medicamentos">Metformina 500mg - 2x/dia</td>
+                    <td data-label="Responsável">Pedro Oliveira</td>
+                    <td data-label="Telefone do Responsável">(21) 9234-5678</td>
+                    <td data-label="Parentesco">Filho</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Julin Pé de Pano</td>
+                    <td data-label="Data de Nascimento">10/11/1945</td>
+                    <td data-label="Gênero">Masculino</td>
+                    <td data-label="CPF">456.789.123-00</td>
+                    <td data-label="Telefone">(31) 9765-4321</td>
+                    <td data-label="E-mail">pedro.santos@email.com</td>
+                    <td data-label="Condições de Saúde">Artrite</td>
+                    <td data-label="Cuidados Especiais">Não</td>
+                    <td data-label="Medicamentos">Ibuprofeno 400mg - conforme necessário</td>
+                    <td data-label="Responsável">Clara Santos</td>
+                    <td data-label="Telefone do Responsável">(31) 9345-6789</td>
+                    <td data-label="Parentesco">Neta</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Clara Almeida</td>
+                    <td data-label="Data de Nascimento">05/02/1935</td>
+                    <td data-label="Gênero">Feminino</td>
+                    <td data-label="CPF">321.654.987-00</td>
+                    <td data-label="Telefone">-</td>
+                    <td data-label="E-mail">-</td>
+                    <td data-label="Condições de Saúde">Sem condições graves</td>
+                    <td data-label="Cuidados Especiais">Não</td>
+                    <td data-label="Medicamentos">-</td>
+                    <td data-label="Responsável">José Almeida</td>
+                    <td data-label="Telefone do Responsável">(41) 9456-7890</td>
+                    <td data-label="Parentesco">Irmão</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>© 2025 Recanto Dos Idosos São Vicente de Paulo - Todos os direitos reservados</p>
+    </footer>
+</body>
+</html>
