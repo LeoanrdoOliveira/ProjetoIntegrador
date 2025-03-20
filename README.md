@@ -15,7 +15,7 @@ Cadastro de Residentes: Formulário para registrar dados pessoais, contatos, con
 Listagem de Residentes: Tabela com todos os residentes cadastrados, adaptável a dispositivos móveis.
 Receitas Médicas: Formulário para criar receitas, com pré-visualização e opção de download em PDF.
 
-:tools: Tecnologias Utilizadas
+🛠️ Tecnologias Utilizadas
 HTML5: Estrutura das páginas.
 CSS3: Estilização moderna com gradientes, sombras e responsividade.
 JavaScript: Lógica de interação, validação de formulários e geração de PDF.
